@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KIT Framework · ManLog Business Unit</title>
+  <title>Keep In Touch - Framework · ManLog Business Unit</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
@@ -85,6 +85,13 @@ const STRENGTH_DESC={
   D:"Yet to identify / No meetings yet",
 };
 const TEAM=["Maheish (You)","Alice","Raj","Sarah","Tom","Swanand","Matt","David","Dhanya","Nikunj","Steve M"];
+
+// ── Client Partner → Client mapping ──────────────────
+const CLIENT_PARTNERS = [
+  { name:"Abhishek", color:"#7c3aed", clients:["GAF","Care.com","GS1"] },
+  { name:"Georgy",   color:"#0891b2", clients:["ADP","Lenovo"] },
+  { name:"Pallav",   color:"#059669", clients:["Odyssey","RXO","XPO","SAIA","BDP"] },
+];
 
 // ── Seed data ─────────────────────────────────────────
 const SEED_CLIENTS=[
@@ -629,8 +636,8 @@ function App(){
           <div style={{display:"flex",alignItems:"center",gap:14}}>
             <div style={{width:7,height:32,background:"linear-gradient(180deg,#3b82f6,#7c3aed)",borderRadius:4}}/>
             <div>
-              <div style={{fontFamily:"'Syne',sans-serif",fontSize:"1rem",fontWeight:700,letterSpacing:"-.01em"}}>KIT Framework</div>
-              <div style={{fontSize:10,color:C.muted,letterSpacing:".1em"}}>MAHEISH K · ManLog BUSINESS UNIT</div>
+              <div style={{fontFamily:"'Syne',sans-serif",fontSize:"1rem",fontWeight:700,letterSpacing:"-.01em"}}>Keep In Touch - Framework</div>
+              <div style={{fontSize:10,color:C.muted,letterSpacing:".1em"}}>MANLOG BUSINESS UNIT</div>
             </div>
           </div>
           <div style={{display:"flex",gap:4}}>
@@ -652,7 +659,7 @@ function App(){
           <div className="fade">
             <div style={{marginBottom:24}}>
               <div style={{fontFamily:"'Syne',sans-serif",fontSize:"1.5rem",fontWeight:700,marginBottom:4}}>Good morning, Maheish 👋</div>
-              <div style={{fontSize:13,color:C.muted}}>Here's your stakeholder engagement overview across {clients.length} accounts. <span style={{color:"#22c55e"}}>● Live</span></div>
+              <div style={{fontSize:13,color:C.muted}}>Here's your stakeholder engagement overview across {clients.length} accounts — ManLog Business Unit. <span style={{color:"#22c55e"}}>● Live</span></div>
             </div>
             <SummaryBar clients={clients}/>
             <div style={{fontFamily:"'Syne',sans-serif",fontSize:"1rem",fontWeight:600,marginBottom:14,color:C.text}}>🔔 Alerts &amp; Upcoming Touch Points</div>
@@ -671,45 +678,79 @@ function App(){
         )}
         {tab==="clients"&&(
           <div className="fade">
-            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:20,flexWrap:"wrap",gap:12}}>
+            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:24,flexWrap:"wrap",gap:12}}>
               <div>
                 <div style={{fontFamily:"'Syne',sans-serif",fontSize:"1.5rem",fontWeight:700,marginBottom:4}}>Client Accounts</div>
-                <div style={{fontSize:13,color:C.muted}}>{clients.length} accounts · {clients.reduce((a,c)=>a+c.stakeholders.length,0)} total stakeholders</div>
+                <div style={{fontSize:13,color:C.muted}}>{clients.length} accounts · {clients.reduce((a,c)=>a+c.stakeholders.length,0)} total stakeholders · 3 client partners</div>
               </div>
               <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search clients…" style={{background:"#ffffff",border:`1px solid ${C.border}`,borderRadius:8,padding:"8px 14px",color:C.text,fontSize:13,fontFamily:"'IBM Plex Sans',sans-serif",width:220}}/>
             </div>
-            <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:14}}>
-              {filtered.map(c=>{
-                const rag=getClientRag(c);
-                const t1=c.stakeholders.filter(s=>s.tier===1).length;
-                const t2=c.stakeholders.filter(s=>s.tier===2).length;
-                const counts={red:0,amber:0,green:0};
-                c.stakeholders.forEach(s=>counts[getRag(s.last,s.freqDays)]++);
-                return(
-                  <div key={c.id} style={{background:"#ffffff",border:`1px solid ${C.border}`,borderRadius:12,padding:"18px 20px",transition:"border-color .2s, box-shadow .2s",boxShadow:"0 1px 4px rgba(0,0,0,.05)"}}
-                    onMouseEnter={e=>{e.currentTarget.style.borderColor=C.accent;e.currentTarget.style.boxShadow="0 4px 16px rgba(37,99,235,.1)";}}
-                    onMouseLeave={e=>{e.currentTarget.style.borderColor=C.border;e.currentTarget.style.boxShadow="0 1px 4px rgba(0,0,0,.05)"}}>
-                    <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:12}}>
-                      <div>
-                        <div style={{fontFamily:"'Syne',sans-serif",fontSize:"1.05rem",fontWeight:700}}>{c.name}</div>
-                        <span style={{fontSize:10,background:segColor[c.segment]+"22",color:segColor[c.segment],border:`1px solid ${segColor[c.segment]}44`,borderRadius:4,padding:"2px 7px",letterSpacing:".08em",textTransform:"uppercase",fontFamily:"'IBM Plex Mono',monospace",marginTop:4,display:"inline-block"}}>{segLabel[c.segment]}</span>
-                      </div>
-                      <RagBadge s={rag}/>
+
+            {CLIENT_PARTNERS.map(cp=>{
+              const cpClients = filtered.filter(c=>cp.clients.includes(c.name));
+              if(cpClients.length===0) return null;
+              const totalSk = cpClients.reduce((a,c)=>a+c.stakeholders.length,0);
+              const allSk = cpClients.flatMap(c=>c.stakeholders);
+              const cpCounts = {red:0,amber:0,green:0};
+              allSk.forEach(s=>cpCounts[getRag(s.last,s.freqDays)]++);
+              return(
+                <div key={cp.name} style={{marginBottom:36}}>
+                  {/* CP Header */}
+                  <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:16,paddingBottom:12,borderBottom:`2px solid ${cp.color}22`}}>
+                    <div style={{width:36,height:36,borderRadius:"50%",background:cp.color+"18",border:`2px solid ${cp.color}44`,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Syne',sans-serif",fontWeight:700,fontSize:14,color:cp.color}}>
+                      {cp.name.charAt(0)}
                     </div>
-                    <div style={{display:"flex",gap:8,marginBottom:14,flexWrap:"wrap"}}>
-                      <span style={{fontSize:11,color:C.muted,background:C.surface,border:`1px solid ${C.border}`,borderRadius:5,padding:"3px 8px"}}>T1: {t1}</span>
-                      <span style={{fontSize:11,color:C.muted,background:C.surface,border:`1px solid ${C.border}`,borderRadius:5,padding:"3px 8px"}}>T2: {t2}</span>
-                      {counts.red>0&&<span style={{fontSize:11,color:C.red.text,background:C.red.bg,border:`1px solid ${C.red.border}`,borderRadius:5,padding:"3px 8px"}}>{counts.red} overdue</span>}
-                      {counts.amber>0&&<span style={{fontSize:11,color:C.amber.text,background:C.amber.bg,border:`1px solid ${C.amber.border}`,borderRadius:5,padding:"3px 8px"}}>{counts.amber} due soon</span>}
+                    <div>
+                      <div style={{fontFamily:"'Syne',sans-serif",fontWeight:700,fontSize:"1.05rem",color:C.text}}>{cp.name}</div>
+                      <div style={{fontSize:11,color:C.muted,marginTop:1}}>Client Partner · {cpClients.length} accounts · {totalSk} stakeholders</div>
                     </div>
-                    <div style={{display:"flex",gap:8}}>
-                      <Btn style={{flex:1,textAlign:"center"}} onClick={()=>setSelectedClient(c.id)}>View Stakeholders</Btn>
-                      <button onClick={()=>deleteClient(c.id)} style={{background:"#fff1f2",border:"1px solid #fecdd3",color:"#dc2626",fontSize:12,padding:"8px 12px",borderRadius:7,cursor:"pointer"}}>×</button>
+                    <div style={{marginLeft:"auto",display:"flex",gap:8,flexWrap:"wrap"}}>
+                      {cpCounts.red>0&&<span style={{fontSize:11,color:C.red.text,background:C.red.bg,border:`1px solid ${C.red.border}`,borderRadius:5,padding:"3px 10px"}}>{cpCounts.red} overdue</span>}
+                      {cpCounts.amber>0&&<span style={{fontSize:11,color:C.amber.text,background:C.amber.bg,border:`1px solid ${C.amber.border}`,borderRadius:5,padding:"3px 10px"}}>{cpCounts.amber} due soon</span>}
+                      {cpCounts.green>0&&<span style={{fontSize:11,color:C.green.text,background:C.green.bg,border:`1px solid ${C.green.border}`,borderRadius:5,padding:"3px 10px"}}>{cpCounts.green} on track</span>}
                     </div>
                   </div>
-                );
-              })}
-            </div>
+
+                  {/* Client cards under this CP */}
+                  <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:14}}>
+                    {cpClients.map(c=>{
+                      const rag=getClientRag(c);
+                      const t1=c.stakeholders.filter(s=>s.tier===1).length;
+                      const t2=c.stakeholders.filter(s=>s.tier===2).length;
+                      const counts={red:0,amber:0,green:0};
+                      c.stakeholders.forEach(s=>counts[getRag(s.last,s.freqDays)]++);
+                      return(
+                        <div key={c.id} style={{background:"#ffffff",border:`1px solid ${C.border}`,borderRadius:12,padding:"18px 20px",transition:"border-color .2s, box-shadow .2s",boxShadow:"0 1px 4px rgba(0,0,0,.05)"}}
+                          onMouseEnter={e=>{e.currentTarget.style.borderColor=cp.color;e.currentTarget.style.boxShadow=`0 4px 16px ${cp.color}20`;}}
+                          onMouseLeave={e=>{e.currentTarget.style.borderColor=C.border;e.currentTarget.style.boxShadow="0 1px 4px rgba(0,0,0,.05)"}}>
+                          <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:12}}>
+                            <div>
+                              <div style={{fontFamily:"'Syne',sans-serif",fontSize:"1.05rem",fontWeight:700}}>{c.name}</div>
+                              <span style={{fontSize:10,background:cp.color+"15",color:cp.color,border:`1px solid ${cp.color}33`,borderRadius:4,padding:"2px 7px",letterSpacing:".08em",textTransform:"uppercase",fontFamily:"'IBM Plex Mono',monospace",marginTop:4,display:"inline-block"}}>{segLabel[c.segment]}</span>
+                            </div>
+                            <RagBadge s={rag}/>
+                          </div>
+                          <div style={{display:"flex",gap:8,marginBottom:14,flexWrap:"wrap"}}>
+                            <span style={{fontSize:11,color:C.muted,background:"#f8fafc",border:`1px solid ${C.border}`,borderRadius:5,padding:"3px 8px"}}>T1: {t1}</span>
+                            <span style={{fontSize:11,color:C.muted,background:"#f8fafc",border:`1px solid ${C.border}`,borderRadius:5,padding:"3px 8px"}}>T2: {t2}</span>
+                            {counts.red>0&&<span style={{fontSize:11,color:C.red.text,background:C.red.bg,border:`1px solid ${C.red.border}`,borderRadius:5,padding:"3px 8px"}}>{counts.red} overdue</span>}
+                            {counts.amber>0&&<span style={{fontSize:11,color:C.amber.text,background:C.amber.bg,border:`1px solid ${C.amber.border}`,borderRadius:5,padding:"3px 8px"}}>{counts.amber} due soon</span>}
+                          </div>
+                          <div style={{display:"flex",gap:8}}>
+                            <Btn style={{flex:1,textAlign:"center"}} onClick={()=>setSelectedClient(c.id)}>View Stakeholders</Btn>
+                            <button onClick={()=>deleteClient(c.id)} style={{background:"#fff1f2",border:"1px solid #fecdd3",color:"#dc2626",fontSize:12,padding:"8px 12px",borderRadius:7,cursor:"pointer"}}>×</button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+
+            {filtered.length===0&&(
+              <div style={{textAlign:"center",padding:"48px",color:C.muted,fontSize:14}}>No clients match your search.</div>
+            )}
           </div>
         )}
       </div>
