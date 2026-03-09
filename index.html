@@ -179,11 +179,11 @@ const CLIENT_PARTNERS = [
 
 // ── Seed data ─────────────────────────────────────────
 const SEED_CLIENTS=[
-  {id:"c1",name:"GAF",segment:"large"},{id:"c2",name:"ADP",segment:"large"},
-  {id:"c3",name:"Odyssey",segment:"medium"},{id:"c4",name:"RXO",segment:"medium"},
-  {id:"c5",name:"XPO",segment:"medium"},{id:"c6",name:"SAIA",segment:"small"},
-  {id:"c7",name:"GS1",segment:"small"},{id:"c8",name:"BDP",segment:"small"},
-  {id:"c9",name:"Care.com",segment:"small"},{id:"c10",name:"Lenovo",segment:"small"},
+  {id:"c1",name:"GAF",segment:"must_focus"},{id:"c2",name:"ADP",segment:"revenue_engine"},
+  {id:"c3",name:"Odyssey",segment:"maintain"},{id:"c4",name:"RXO",segment:"must_focus"},
+  {id:"c5",name:"XPO",segment:"must_focus"},{id:"c6",name:"SAIA",segment:"low_focus"},
+  {id:"c7",name:"GS1",segment:"maintain"},{id:"c8",name:"BDP",segment:"maintain"},
+  {id:"c9",name:"Care.com",segment:"low_focus"},{id:"c10",name:"Lenovo",segment:"new_hunting"},
 ];
 const SEED_STAKEHOLDERS=[
   // ── GAF ──────────────────────────────────────────────
@@ -362,14 +362,16 @@ function StakeholderForm({init,onSave,onCancel,saving}){
 
 function AddClientForm({onSave,onCancel,saving}){
   const [name,setName]=useState("");
-  const [seg,setSeg]=useState("large");
+  const [seg,setSeg]=useState("must_focus");
   return(
     <div>
       <Inp label="Client / Account Name" value={name} onChange={e=>setName(e.target.value)} placeholder="e.g. Acme Corp"/>
       <Sel label="Account Segment" value={seg} onChange={e=>setSeg(e.target.value)}>
-        <option value="large">Large Scalable (potential ≥ $10M)</option>
-        <option value="medium">Medium Scalable (potential ≥ $5M)</option>
-        <option value="small">Small (potential &lt; $5M)</option>
+        <option value="must_focus">1- Must Focus</option>
+        <option value="revenue_engine">2- Revenue Engine</option>
+        <option value="maintain">3- Maintain/Optimize</option>
+        <option value="low_focus">4- Low Focus</option>
+        <option value="new_hunting">5- New Hunting</option>
       </Sel>
       <div style={{display:"flex",gap:10,justifyContent:"flex-end",marginTop:4,alignItems:"center"}}>
         {saving&&<Spinner/>}
@@ -526,7 +528,7 @@ function ClientDetail({client,onAddSk,onUpdateSk,onDeleteSk,onLogContact,onBack}
   const handleUpdate=async(sk)=>{setSaving(true);await onUpdateSk(sk);setSaving(false);setEditSk(null);};
   const handleLog=async(skId)=>{setSaving(true);await onLogContact(client.id,skId,logDate);setSaving(false);setLogId(null);};
 
-  const segLabel={large:"Large Scalable",medium:"Medium Scalable",small:"Small Account"};
+  const segLabel={must_focus:"1- Must Focus",revenue_engine:"2- Revenue Engine",maintain:"3- Maintain/Optimize",low_focus:"4- Low Focus",new_hunting:"5- New Hunting"};
   const tiers=[{label:"Tier 1 — C-Suite & Senior Stakeholders",t:1},{label:"Tier 2 — C-2 / C-3 Stakeholders",t:2},{label:"Tier 3 — Others / New Logos",t:3}];
 
   const SkRow=({s})=>{
@@ -746,8 +748,8 @@ function App(){
     </div>
   );
 
-  const segLabel={large:"Large",medium:"Medium",small:"Small"};
-  const segColor={large:"#7c3aed",medium:C.accent,small:"#0891b2"};
+  const segLabel={must_focus:"1- Must Focus",revenue_engine:"2- Revenue Engine",maintain:"3- Maintain/Optimize",low_focus:"4- Low Focus",new_hunting:"5- New Hunting"};
+  const segColor={must_focus:"#dc2626",revenue_engine:"#ea580c",maintain:"#2563eb",low_focus:"#6b7a99",new_hunting:"#059669"};
 
   return(
     <div style={{background:C.bg,minHeight:"100vh",color:C.text}}>
