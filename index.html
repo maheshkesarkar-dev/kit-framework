@@ -102,50 +102,51 @@ const SEED_CLIENTS=[
   {id:"c9",name:"Care.com",segment:"small"},{id:"c10",name:"Lenovo",segment:"small"},
 ];
 const SEED_STAKEHOLDERS=[
-  {id:"s1",client_id:"c1",name:"Lisa",role:"Senior Stakeholder",tier:1,strength:"B",assigned_to:"Maheish (You)",freq_days:90,last_contact:ago(35)},
-  {id:"s2",client_id:"c1",name:"Parag",role:"Stakeholder",tier:1,strength:"C",assigned_to:"Maheish (You)",freq_days:90,last_contact:ago(95)},
-  {id:"s3",client_id:"c1",name:"Christine",role:"Stakeholder",tier:1,strength:"D",assigned_to:"Maheish (You)",freq_days:90,last_contact:null},
-  {id:"s4",client_id:"c1",name:"John M",role:"Stakeholder",tier:1,strength:"D",assigned_to:"Maheish (You)",freq_days:90,last_contact:null},
-  {id:"s5",client_id:"c1",name:"Matt",role:"Tier 2 Stakeholder",tier:2,strength:"B",assigned_to:"Matt",freq_days:180,last_contact:ago(120)},
-  {id:"s6",client_id:"c1",name:"Swanand",role:"Tier 2 Stakeholder",tier:2,strength:"B",assigned_to:"Swanand",freq_days:180,last_contact:ago(60)},
-  {id:"s7",client_id:"c1",name:"David",role:"Tier 2 Stakeholder",tier:2,strength:"B",assigned_to:"David",freq_days:180,last_contact:ago(200)},
-  {id:"s10",client_id:"c2",name:"Lauri",role:"C-Suite",tier:1,strength:"A",assigned_to:"Maheish (You)",freq_days:90,last_contact:ago(25)},
-  {id:"s11",client_id:"c2",name:"Raghu K",role:"Senior Stakeholder",tier:1,strength:"B",assigned_to:"Maheish (You)",freq_days:90,last_contact:ago(100)},
-  {id:"s12",client_id:"c2",name:"Mo",role:"Stakeholder",tier:1,strength:"C",assigned_to:"Maheish (You)",freq_days:90,last_contact:ago(45)},
-  {id:"s13",client_id:"c2",name:"Isabel",role:"Stakeholder",tier:1,strength:"C",assigned_to:"Maheish (You)",freq_days:90,last_contact:ago(80)},
-  {id:"s14",client_id:"c2",name:"Sreeni",role:"Stakeholder",tier:1,strength:"C",assigned_to:"Maheish (You)",freq_days:90,last_contact:ago(50)},
-  {id:"s15",client_id:"c2",name:"Max Lee",role:"Stakeholder",tier:1,strength:"D",assigned_to:"Raj",freq_days:90,last_contact:null},
-  {id:"s16",client_id:"c2",name:"Yesh",role:"Stakeholder",tier:1,strength:"D",assigned_to:"Raj",freq_days:90,last_contact:null},
-  {id:"s17",client_id:"c2",name:"Pankaj",role:"Tier 2",tier:2,strength:"B",assigned_to:"David",freq_days:180,last_contact:ago(90)},
-  {id:"s18",client_id:"c2",name:"Chris",role:"Tier 2",tier:2,strength:"B",assigned_to:"David",freq_days:180,last_contact:ago(160)},
-  {id:"s20",client_id:"c3",name:"Nirab",role:"C-Suite",tier:1,strength:"B",assigned_to:"Maheish (You)",freq_days:90,last_contact:ago(70)},
-  {id:"s21",client_id:"c3",name:"Vijay",role:"Senior Stakeholder",tier:1,strength:"B",assigned_to:"Maheish (You)",freq_days:90,last_contact:ago(20)},
-  {id:"s22",client_id:"c3",name:"Maneet",role:"Stakeholder",tier:1,strength:"C",assigned_to:"Raj",freq_days:90,last_contact:ago(110)},
-  {id:"s23",client_id:"c3",name:"Danielle B",role:"Stakeholder",tier:1,strength:"D",assigned_to:"Raj",freq_days:90,last_contact:null},
-  {id:"s24",client_id:"c3",name:"Devin G",role:"Tier 2",tier:2,strength:"B",assigned_to:"Swanand",freq_days:180,last_contact:ago(75)},
-  {id:"s25",client_id:"c3",name:"John T",role:"Tier 2",tier:2,strength:"B",assigned_to:"David",freq_days:180,last_contact:ago(200)},
-  {id:"s30",client_id:"c4",name:"Dipak T",role:"Senior Stakeholder",tier:1,strength:"B",assigned_to:"Maheish (You)",freq_days:90,last_contact:ago(15)},
-  {id:"s31",client_id:"c4",name:"Allyssa",role:"Stakeholder",tier:1,strength:"C",assigned_to:"Sarah",freq_days:90,last_contact:ago(100)},
-  {id:"s32",client_id:"c4",name:"Surendra",role:"Tier 2",tier:2,strength:"B",assigned_to:"Nikunj",freq_days:180,last_contact:ago(40)},
-  {id:"s33",client_id:"c4",name:"Naresh",role:"Tier 2",tier:2,strength:"B",assigned_to:"Nikunj",freq_days:180,last_contact:ago(190)},
-  {id:"s40",client_id:"c5",name:"Sameer S",role:"Senior Stakeholder",tier:1,strength:"B",assigned_to:"Maheish (You)",freq_days:90,last_contact:ago(55)},
-  {id:"s41",client_id:"c5",name:"Erin G",role:"Tier 2",tier:2,strength:"B",assigned_to:"Steve M",freq_days:180,last_contact:ago(85)},
-  {id:"s42",client_id:"c5",name:"Ron D",role:"Tier 2",tier:2,strength:"B",assigned_to:"Steve M",freq_days:180,last_contact:ago(195)},
-  {id:"s50",client_id:"c6",name:"Tarak P",role:"Senior Stakeholder",tier:1,strength:"C",assigned_to:"Tom",freq_days:90,last_contact:ago(30)},
-  {id:"s51",client_id:"c6",name:"Jay S",role:"Stakeholder",tier:1,strength:"D",assigned_to:"Tom",freq_days:90,last_contact:null},
-  {id:"s52",client_id:"c6",name:"Nanda",role:"Tier 2",tier:2,strength:"B",assigned_to:"Tom",freq_days:180,last_contact:ago(60)},
-  {id:"s60",client_id:"c7",name:"Sachin",role:"C-Suite",tier:1,strength:"A",assigned_to:"Maheish (You)",freq_days:90,last_contact:ago(10)},
-  {id:"s61",client_id:"c7",name:"Rob",role:"Senior Stakeholder",tier:1,strength:"B",assigned_to:"Raj",freq_days:90,last_contact:ago(85)},
-  {id:"s62",client_id:"c7",name:"Birgit",role:"Tier 2",tier:2,strength:"B",assigned_to:"Raj",freq_days:180,last_contact:ago(45)},
-  {id:"s70",client_id:"c8",name:"Kerreye",role:"Senior Stakeholder",tier:1,strength:"B",assigned_to:"Maheish (You)",freq_days:90,last_contact:ago(40)},
-  {id:"s71",client_id:"c8",name:"Neil W",role:"Stakeholder",tier:1,strength:"C",assigned_to:"Sarah",freq_days:90,last_contact:ago(105)},
-  {id:"s72",client_id:"c8",name:"Waqas",role:"Tier 2",tier:2,strength:"B",assigned_to:"Sarah",freq_days:180,last_contact:ago(170)},
-  {id:"s80",client_id:"c9",name:"Amit G",role:"Senior Stakeholder",tier:1,strength:"B",assigned_to:"Maheish (You)",freq_days:90,last_contact:ago(60)},
-  {id:"s81",client_id:"c9",name:"Sarah G",role:"Tier 2",tier:2,strength:"B",assigned_to:"Alice",freq_days:180,last_contact:ago(100)},
-  {id:"s82",client_id:"c9",name:"Avery M",role:"Tier 2",tier:2,strength:"B",assigned_to:"Alice",freq_days:180,last_contact:ago(50)},
-  {id:"s90",client_id:"c10",name:"Lu Wang",role:"Senior Stakeholder",tier:1,strength:"B",assigned_to:"Maheish (You)",freq_days:90,last_contact:ago(22)},
-  {id:"s91",client_id:"c10",name:"Mandar",role:"Tier 2",tier:2,strength:"B",assigned_to:"Dhanya",freq_days:180,last_contact:ago(130)},
-  {id:"s92",client_id:"c10",name:"Sue Hall",role:"Tier 2",tier:2,strength:"B",assigned_to:"Dhanya",freq_days:180,last_contact:ago(90)},
+  // ── GAF ──────────────────────────────────────────────
+  {id:"s1", client_id:"c1",name:"Lisa Gonzalez",    role:"Stakeholder",tier:1,strength:"B",assigned_to:"Maheish (You)",freq_days:30, last_contact:"2026-03-02"},
+  {id:"s2", client_id:"c1",name:"Parag Agrawal",    role:"Stakeholder",tier:1,strength:"C",assigned_to:"Maheish (You)",freq_days:90, last_contact:"2026-02-24"},
+
+  // ── ADP ──────────────────────────────────────────────
+  {id:"s10",client_id:"c2",name:"Lauri Levine",     role:"C-Suite",    tier:1,strength:"A",assigned_to:"Maheish (You)",freq_days:30, last_contact:"2026-03-05"},
+  {id:"s11",client_id:"c2",name:"Raghu Kukatala",   role:"Stakeholder",tier:1,strength:"B",assigned_to:"Maheish (You)",freq_days:30, last_contact:"2026-02-26"},
+  {id:"s12",client_id:"c2",name:"Mo Chakroun",      role:"Stakeholder",tier:1,strength:"C",assigned_to:"Maheish (You)",freq_days:90, last_contact:"2026-03-05"},
+  {id:"s13",client_id:"c2",name:"Isabel Espina",    role:"Stakeholder",tier:1,strength:"C",assigned_to:"Maheish (You)",freq_days:90, last_contact:"2025-10-10"},
+  {id:"s14",client_id:"c2",name:"Sreeni Konidena",  role:"Stakeholder",tier:1,strength:"C",assigned_to:"Maheish (You)",freq_days:90, last_contact:"2026-01-10"},
+  {id:"s15",client_id:"c2",name:"Max Lee",          role:"Stakeholder",tier:1,strength:"D",assigned_to:"Maheish (You)",freq_days:90, last_contact:"2025-10-10"},
+  {id:"s16",client_id:"c2",name:"Yesh",             role:"Stakeholder",tier:1,strength:"D",assigned_to:"Maheish (You)",freq_days:90, last_contact:"2025-10-10"},
+
+  // ── Odyssey ───────────────────────────────────────────
+  {id:"s20",client_id:"c3",name:"Nirab Kumar",      role:"C-Suite",    tier:1,strength:"B",assigned_to:"Maheish (You)",freq_days:30, last_contact:"2026-02-26"},
+  {id:"s21",client_id:"c3",name:"Vijay Nalla",      role:"Stakeholder",tier:1,strength:"B",assigned_to:"Maheish (You)",freq_days:30, last_contact:"2026-02-27"},
+  {id:"s22",client_id:"c3",name:"Maneet Singh",     role:"Stakeholder",tier:1,strength:"C",assigned_to:"Maheish (You)",freq_days:90, last_contact:"2025-10-10"},
+
+  // ── RXO ───────────────────────────────────────────────
+  {id:"s30",client_id:"c4",name:"Dipak Tendulkar",  role:"Stakeholder",tier:1,strength:"B",assigned_to:"Maheish (You)",freq_days:90, last_contact:"2026-01-10"},
+  {id:"s31",client_id:"c4",name:"Allyssa Myers",    role:"Stakeholder",tier:1,strength:"C",assigned_to:"Maheish (You)",freq_days:90, last_contact:"2026-01-10"},
+  {id:"s32",client_id:"c4",name:"Surendra Pamidi",  role:"Stakeholder",tier:2,strength:"B",assigned_to:"Maheish (You)",freq_days:60, last_contact:"2026-01-10"},
+  {id:"s33",client_id:"c4",name:"Naresh Chentalcheru",role:"Stakeholder",tier:2,strength:"B",assigned_to:"Maheish (You)",freq_days:60,last_contact:"2026-01-10"},
+  {id:"s34",client_id:"c4",name:"Marie Kolodz",     role:"Stakeholder",tier:2,strength:"B",assigned_to:"Maheish (You)",freq_days:90, last_contact:"2026-01-10"},
+
+  // ── XPO ───────────────────────────────────────────────
+  {id:"s40",client_id:"c5",name:"Sameer Shaikh",    role:"Stakeholder",tier:1,strength:"B",assigned_to:"Maheish (You)",freq_days:90, last_contact:"2026-01-10"},
+  {id:"s41",client_id:"c5",name:"Jay S",            role:"Stakeholder",tier:1,strength:"D",assigned_to:"Maheish (You)",freq_days:90, last_contact:"2025-10-10"},
+
+  // ── SAIA ──────────────────────────────────────────────
+  {id:"s50",client_id:"c6",name:"Tarak Patel",      role:"Stakeholder",tier:1,strength:"C",assigned_to:"Maheish (You)",freq_days:90, last_contact:"2025-12-10"},
+
+  // ── GS1 ───────────────────────────────────────────────
+  {id:"s60",client_id:"c7",name:"Sachin Deshpande", role:"C-Suite",    tier:1,strength:"A",assigned_to:"Maheish (You)",freq_days:60, last_contact:"2026-02-25"},
+  {id:"s61",client_id:"c7",name:"Robert Beideman",  role:"Stakeholder",tier:1,strength:"B",assigned_to:"Maheish (You)",freq_days:90, last_contact:"2025-12-15"},
+
+  // ── BDP ───────────────────────────────────────────────
+  {id:"s70",client_id:"c8",name:"Kerreye Wasserman",role:"Stakeholder",tier:1,strength:"B",assigned_to:"Maheish (You)",freq_days:90, last_contact:"2026-01-10"},
+  {id:"s71",client_id:"c8",name:"Neil Wheeldon",    role:"Stakeholder",tier:1,strength:"C",assigned_to:"Maheish (You)",freq_days:90, last_contact:"2025-10-10"},
+
+  // ── Care.com ──────────────────────────────────────────
+  {id:"s80",client_id:"c9",name:"Amit Goyal",       role:"Stakeholder",tier:1,strength:"B",assigned_to:"Maheish (You)",freq_days:90, last_contact:"2025-12-15"},
+
+  // ── Lenovo ────────────────────────────────────────────
+  {id:"s90",client_id:"c10",name:"TBD",             role:"Stakeholder",tier:1,strength:"D",assigned_to:"Maheish (You)",freq_days:90, last_contact:"2025-12-15"},
 ];
 
 // ── Convert DB row → app shape ────────────────────────
@@ -524,6 +525,19 @@ function App(){
     }
   },[]);
 
+  const forceReseed=useCallback(async()=>{
+    if(!window.confirm("⚠️ This will DELETE all current data and reload with the latest master data. Are you sure?")) return;
+    setLoading(true);
+    await supabase.from("stakeholders").delete().neq("id","__none__");
+    await supabase.from("clients").delete().neq("id","__none__");
+    await supabase.from("clients").insert(SEED_CLIENTS);
+    await supabase.from("stakeholders").insert(SEED_STAKEHOLDERS);
+    const data=await fetchAll();
+    if(data) setClients(data);
+    setLoading(false);
+    flash("✅ Data reloaded with latest master data");
+  },[fetchAll]);
+
   useEffect(()=>{
     (async()=>{
       setLoading(true);
@@ -649,6 +663,7 @@ function App(){
           </div>
           <div style={{display:"flex",alignItems:"center",gap:10}}>
             <div style={{width:8,height:8,borderRadius:"50%",background:"#22c55e",boxShadow:"0 0 6px #22c55e"}} title="Live sync active"/>
+            <button onClick={forceReseed} title="Reload master data" style={{background:"#fff7ed",border:"1px solid #fed7aa",color:"#c2410c",padding:"7px 12px",borderRadius:7,fontSize:11,fontFamily:"'IBM Plex Mono',monospace",cursor:"pointer",letterSpacing:".04em"}}>↺ Reset Data</button>
             <Btn onClick={()=>setShowAddClient(true)}>+ Add Client</Btn>
           </div>
         </div>
