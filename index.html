@@ -603,6 +603,7 @@ function App(){
   const [saving,setSaving]=useState(false);
   const [syncMsg,setSyncMsg]=useState(null);
   const [search,setSearch]=useState("");
+  const [quadFilter,setQuadFilter]=useState("all");
   const seeded=useRef(false);
 
   const flash=(msg,ms=2500)=>{setSyncMsg(msg);setTimeout(()=>setSyncMsg(null),ms);};
@@ -712,7 +713,11 @@ function App(){
     setSaving(false);setLogTarget(null);
   };
 
-  const filtered=clients.filter(c=>c.name.toLowerCase().includes(search.toLowerCase()));
+  const filtered=clients.filter(c=>{
+    const nameOk=c.name.toLowerCase().includes(search.toLowerCase());
+    const quadOk=quadFilter==="all"||c.segment===quadFilter;
+    return nameOk&&quadOk;
+  });
   const getClientRag=(c)=>{
     if(!c.stakeholders.length) return "green";
     const counts={red:0,amber:0,green:0};
@@ -779,15 +784,29 @@ function App(){
       </div>
 
       <div className="kit-page-content" style={{maxWidth:1200,margin:"0 auto",padding:"28px 28px"}}>
+
+        {/* ── Quadrant Filter Bar (all tabs) ── */}
+        <div style={{display:"flex",gap:8,marginBottom:20,flexWrap:"wrap",alignItems:"center"}}>
+          <span style={{fontSize:11,color:C.muted,fontWeight:600,letterSpacing:".06em",textTransform:"uppercase",marginRight:4}}>Focus</span>
+          {[{v:"all",label:"All Accounts",color:C.muted},...Object.entries(segLabel).map(([v,label])=>({v,label,color:segColor[v]}))].map(({v,label,color})=>(
+            <button key={v} onClick={()=>setQuadFilter(v)}
+              style={{fontSize:11,padding:"5px 12px",borderRadius:20,border:`1px solid ${quadFilter===v?color:C.border}`,
+                background:quadFilter===v?color:"transparent",color:quadFilter===v?"#fff":C.muted,
+                cursor:"pointer",fontWeight:quadFilter===v?600:400,transition:"all .15s",whiteSpace:"nowrap"}}>
+              {label}{v!=="all"&&<span style={{marginLeft:5,opacity:.75}}>({clients.filter(c=>c.segment===v).length})</span>}
+            </button>
+          ))}
+        </div>
+
         {tab==="dashboard"&&(
           <div className="fade">
             <div style={{marginBottom:24}}>
               <div style={{fontFamily:"'Syne',sans-serif",fontSize:"1.5rem",fontWeight:700,marginBottom:4}} className="kit-dash-title">Hello, Maheish Kesarkar 👋</div>
-              <div style={{fontSize:13,color:C.muted}} className="kit-dash-sub">Here's your stakeholder engagement overview across {clients.length} accounts — ManLog Business Unit. <span style={{color:"#22c55e"}}>● Live</span></div>
+              <div style={{fontSize:13,color:C.muted}} className="kit-dash-sub">Here's your stakeholder engagement overview across {filtered.length} accounts — ManLog Business Unit. <span style={{color:"#22c55e"}}>● Live</span></div>
             </div>
-            <SummaryBar clients={clients}/>
+            <SummaryBar clients={filtered}/>
             <div style={{fontFamily:"'Syne',sans-serif",fontSize:"1rem",fontWeight:600,marginBottom:14,color:C.text}} className="kit-section-title">🔔 Alerts &amp; Upcoming Touch Points</div>
-            <AlertsPanel clients={clients}/>
+            <AlertsPanel clients={filtered}/>
           </div>
         )}
         {tab==="rag"&&(
@@ -796,8 +815,8 @@ function App(){
               <div style={{fontFamily:"'Syne',sans-serif",fontSize:"1.5rem",fontWeight:700,marginBottom:4}} className="kit-section-title">RAG Report</div>
               <div style={{fontSize:13,color:C.muted}}>Real-time status of all stakeholder touch points. <span style={{color:"#22c55e"}}>● Live sync active</span></div>
             </div>
-            <SummaryBar clients={clients}/>
-            <RagTable clients={clients} onLogContact={(cId,sId)=>{setLogTarget({clientId:cId,skId:sId});setLogDate(new Date().toISOString().split("T")[0]);}}/>
+            <SummaryBar clients={filtered}/>
+            <RagTable clients={filtered} onLogContact={(cId,sId)=>{setLogTarget({clientId:cId,skId:sId});setLogDate(new Date().toISOString().split("T")[0]);}}/>
           </div>
         )}
         {tab==="clients"&&(
@@ -850,7 +869,7 @@ function App(){
                           <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:12}}>
                             <div>
                               <div style={{fontFamily:"'Syne',sans-serif",fontSize:"1.05rem",fontWeight:700}}>{c.name}</div>
-                              <span style={{fontSize:10,background:cp.color+"15",color:cp.color,border:`1px solid ${cp.color}33`,borderRadius:4,padding:"2px 7px",letterSpacing:".08em",textTransform:"uppercase",fontFamily:"'IBM Plex Mono',monospace",marginTop:4,display:"inline-block"}}>{segLabel[c.segment]}</span>
+                              <span style={{fontSize:10,background:segColor[c.segment]+"18",color:segColor[c.segment],border:`1px solid ${segColor[c.segment]}44`,borderRadius:4,padding:"2px 7px",letterSpacing:".08em",fontFamily:"'IBM Plex Mono',monospace",marginTop:4,display:"inline-block",fontWeight:600}}>{segLabel[c.segment]}</span>
                             </div>
                             <RagBadge s={rag}/>
                           </div>
